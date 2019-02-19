@@ -42,14 +42,24 @@ services:
         ELK_VERSION: $ELK_VERSION
     volumes:
       - ./kibana/config/:/usr/share/kibana/config:ro
-    ports:
-      - "5601:5601"
+    expose:
+      - "5601"
     networks:
+      - web
       - elk
     depends_on:
       - elasticsearch
+    labels:
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:es.alar.my"
+      - "traefik.basic.port=5601"
+      - "traefik.basic.protocol=https"
 
 networks:
 
   elk:
     driver: bridge
+
+  web:
+    external: true
