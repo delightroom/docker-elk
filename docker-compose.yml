@@ -47,6 +47,7 @@ services:
     networks:
       - web
       - elk
+      - default
     depends_on:
       - elasticsearch
     labels:
@@ -54,7 +55,7 @@ services:
       - "traefik.enable=true"
       - "traefik.basic.frontend.rule=Host:es.alar.my"
       - "traefik.basic.port=5601"
-      - "traefik.basic.protocol=https"
+      - "traefik.basic.protocol=http"
 
 networks:
 

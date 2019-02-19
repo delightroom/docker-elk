@@ -1,7 +1,9 @@
-debug = false
+debug = true
 
-logLevel = "ERROR"
+logLevel = "INFO"
 defaultEntryPoints = ["https","http"]
+
+[accessLog]
 
 [entryPoints]
   [entryPoints.http]
@@ -10,7 +12,9 @@ defaultEntryPoints = ["https","http"]
     entryPoint = "https"
   [entryPoints.https]
   address = ":443"
-  [entryPoints.https.tls]
+    [entryPoints.https.auth.basic]
+    users = ["chris:$apr1$vif9fSnY$IC/PKPI3fDPucQPBJ.X.80"]
+  [entryPoints.https.tls]  
 
 [retry]
 
