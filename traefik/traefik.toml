@@ -3,18 +3,24 @@ debug = true
 logLevel = "INFO"
 defaultEntryPoints = ["https","http"]
 
+[api]
+entryPoint = "dashboard"
+dashboard = true
+
 [accessLog]
 
 [entryPoints]
+  [entryPoints.dashboard]
+  address = ":8080"
+    [entryPoints.dashboard.auth.basic]
+    users = ["chris:$apr1$vif9fSnY$IC/PKPI3fDPucQPBJ.X.80"]
   [entryPoints.http]
   address = ":80"
     [entryPoints.http.redirect]
     entryPoint = "https"
   [entryPoints.https]
-  address = ":443"
-    [entryPoints.https.auth.basic]
-    users = ["chris:$apr1$vif9fSnY$IC/PKPI3fDPucQPBJ.X.80"]
-  [entryPoints.https.tls]  
+  address = ":443"    
+    [entryPoints.https.tls]
 
 [retry]
 

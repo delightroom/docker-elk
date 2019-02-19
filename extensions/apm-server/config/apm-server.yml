@@ -1,5 +1,6 @@
 apm-server:
   host: localhost:8200
+  secret_token: f7924cf2483004f8eec1d940e6355beea2503eb1
 
 output:
   elasticsearch:

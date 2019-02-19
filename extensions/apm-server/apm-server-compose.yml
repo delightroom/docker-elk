@@ -10,7 +10,17 @@ services:
       - ./extensions/apm-server/config/apm-server.yml:/usr/share/apm-server/config/apm-server.yml:ro
     ports:
       - "8200:8200"
+    expose:
+      - "8200"
     networks:
       - elk
+      - web
+      - default
     depends_on:
       - elasticsearch
+    labels:
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:es.alar.my;PathPrefixStrip:/apm"
+      - "traefik.port=8200"
+      - "traefik.protocol=http"

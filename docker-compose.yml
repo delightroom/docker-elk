@@ -16,6 +16,14 @@ services:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
       - elk
+      - web
+      - default
+    labels:
+      - "traefik.docker.network=web"
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:es.alar.my;PathPrefixStrip:/elasticsearch"
+      - "traefik.port=9200"
+      - "traefik.protocol=http"
 
   logstash:
     build:
@@ -53,9 +61,10 @@ services:
     labels:
       - "traefik.docker.network=web"
       - "traefik.enable=true"
-      - "traefik.basic.frontend.rule=Host:es.alar.my"
-      - "traefik.basic.port=5601"
-      - "traefik.basic.protocol=http"
+      - "traefik.frontend.rule=Host:log.alar.my"
+      - "traefik.frontend.auth.basic.users=chris:$$apr1$$vif9fSnY$$IC/PKPI3fDPucQPBJ.X.80"
+      - "traefik.port=5601"
+      - "traefik.protocol=http"      
 
 networks:
 
